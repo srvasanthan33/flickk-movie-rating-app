@@ -5,6 +5,7 @@ require('dotenv').config()
 
 const movieRoute = require('./routes/movieRoute')
 const authenticateRoute = require('./routes/authenticateRoute')
+const requireAuth = require('./middleware/authMiddleware')
 
 const PORT = 5500
 
@@ -25,7 +26,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 
-app.use('/api/v1/movies', movieRoute)
+app.use('/api/v1/movies', requireAuth, movieRoute)
 app.use('/auth', authenticateRoute)
 
 app.listen(PORT, () => {
