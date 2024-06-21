@@ -3,8 +3,8 @@ const jwt = require('jsonwebtoken')
 
 const maxAge = 3 * 24 * 60 * 60
 
-const createToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
+const createToken = (id, role) => {
+    return jwt.sign({ id, role }, process.env.JWT_SECRET, {
         expiresIn: maxAge
     })
 }
@@ -27,7 +27,7 @@ const signupPost = async (req, res) => {
         const user = await userModel.create(newUser)
         console.log(user)
 
-        const token = createToken(user._id)
+        const token = createToken(user._id, user.role)
         res.cookie('jwt', token)
 
         console.log(`token created ${token}`)
@@ -48,6 +48,8 @@ const loginPost = async (req, res) => {
     try {
 
         const user = await userModel.login(username, password)
+        const token = createToken(user._id, user.role)
+        res.cookie('jwt', token)
 
         res.status(200).json(user)
     }
