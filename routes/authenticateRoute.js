@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { loginGet, signupGet, loginPost, signupPost } = require('../controllers/authenticateController')
+const { loginGet, signupGet, loginPost, signupPost, logoutGet } = require('../controllers/authenticateController')
 
 router.route('/signup')
     .get(signupGet)
@@ -8,5 +8,8 @@ router.route('/signup')
 router.route('/login')
     .get(loginGet)
     .post(loginPost)
+
+router.route('/logout')
+    .get(logoutGet)
 
 module.exports = router

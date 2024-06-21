@@ -5,7 +5,8 @@ require('dotenv').config()
 
 const movieRoute = require('./routes/movieRoute')
 const authenticateRoute = require('./routes/authenticateRoute')
-const requireAuth = require('./middleware/authMiddleware')
+const { requireAuth, requireAdmin, checkUser } = require('./middleware/authMiddleware')
+const adminRoute = require('./routes/adminRoute')
 
 const PORT = 5500
 
@@ -25,8 +26,12 @@ mongoose.connect(process.env.MONGO_URL)
 app.use(express.json())
 app.use(cookieParser())
 
+// Protected routes can be accessed only when authorized
 
-app.use('/api/v1/movies', requireAuth, movieRoute)
+app.use('/api/v1/movies', requireAuth, checkUser, movieRoute)
+app.use('/api/v1/admin', requireAuth, checkUser, requireAdmin, adminRoute)
+
+console.log(requireAuth)
 app.use('/auth', authenticateRoute)
 
 app.listen(PORT, () => {

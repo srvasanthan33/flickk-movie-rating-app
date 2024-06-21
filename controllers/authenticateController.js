@@ -58,5 +58,9 @@ const loginPost = async (req, res) => {
     }
 }
 
-
-module.exports = { loginGet, signupGet, signupPost, loginPost }
+const logoutGet = (req, res) => {
+    res.cookie('jwt', '', { maxAge: 1 })
+    console.log('logged out')
+    res.redirect('/auth/login')
+}
+module.exports = { loginGet, signupGet, signupPost, loginPost, logoutGet }
