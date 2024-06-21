@@ -14,7 +14,7 @@ const requireAuth = (req, res, next) => {
             }
             else {
                 //if the token is valid then it is allowed to proceed through the route
-                console.log(decodedToken)
+                console.log(`\ndecodedToken ${decodedToken.id} verified`)
                 req.decodedToken = decodedToken
                 next()
 
@@ -42,6 +42,7 @@ const checkUser = (req, res, next) => {
 
                 let user = await userModel.findById(decodedToken.id)
                 req.userAccessed = user.username
+                req.token = decodedToken
                 console.log("validUser " + user.username)
                 next()
             }
