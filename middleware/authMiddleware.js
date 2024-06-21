@@ -23,7 +23,8 @@ const requireAuth = (req, res, next) => {
     }
     else {
         console.log('Not authorized to access')
-        res.redirect('/auth/login')
+        res.status(403).send('Not authorized to access')
+        // res.redirect('/auth/login')
     }
 }
 
