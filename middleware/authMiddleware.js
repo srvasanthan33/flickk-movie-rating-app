@@ -42,7 +42,10 @@ const checkUser = (req, res, next) => {
             else {
 
                 let user = await userModel.findById(decodedToken.id)
-                req.userAccessed = user.username
+                if (!user) {
+                    return res.status(401).send('Not authorized to accesss')
+                }
+                // req.userAccessed = user.username
                 req.token = decodedToken
                 console.log("validUser " + user.username)
                 next()
