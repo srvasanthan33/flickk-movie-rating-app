@@ -1,10 +1,6 @@
 const mongoose = require('mongoose')
 
 const movieSchema = new mongoose.Schema({
-    movie_id: {
-        type: Number,
-        unique: true
-    },
     movie_name: {
         type: String,
         required: true

@@ -1,10 +1,16 @@
 const movieModel = require('../models/movie')
 const userModel = require('../models/user')
 
+const initialData = require('../data/initialData')
+
 const getAllMovies = async (req, res) => {
     try {
 
         const moviesList = await movieModel.find()
+
+        if (moviesList.length === 0) {
+            const moviesList = await movieModel.insertMany(initialData)
+        }
 
         res.status(200).json(moviesList)
     }

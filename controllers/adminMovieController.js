@@ -6,11 +6,9 @@ const addMovie = async (req, res) => {
     try {
         const { movie_name, release_year, genre, synopsis } = req.body
 
-        const lastMovie = await movieModel.findOne().sort('-movie_id');
-        const movie_id = lastMovie ? lastMovie.movie_id + 1 : 1;
+
 
         const newMovie = new movieModel({
-            movie_id,
             movie_name,
             release_year,
             genre,
@@ -37,7 +35,10 @@ const updateMovie = async (req, res) => {
     const updatedMovieDetails = req.body
 
     try {
-        const movie = await movieModel.findOneAndUpdate({ movie_id }, { $set: updatedMovieDetails }, { new: true })
+        if (!mongoose.Types.ObjectId.isValid(movie_id)) {
+            return res.status(400).json({ message: "Invalid movie ID format" });
+        }
+        const movie = await movieModel.findOneAndUpdate({ _id: movie_id }, { $set: updatedMovieDetails }, { new: true })
         console.log(movie)
         res.status(201).json(movie)
     }
@@ -50,7 +51,7 @@ const deleteMovie = async (req, res) => {
     try {
         const { movie_id } = req.params
 
-        const deleteAcknowledged = await movieModel.deleteOne({ movie_id })
+        const deleteAcknowledged = await movieModel.deleteOne({ _id: movie_id })
         console.log(deleteAcknowledged + ' deleted successfully ')
         res.status(201).json(deleteAcknowledged)
     }
