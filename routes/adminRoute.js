@@ -11,6 +11,9 @@ router.post('/addMovie', addMovie)
 router.patch('/updateMovie/:movie_id', updateMovie)
 router.delete('/deleteMovie/:movie_id', deleteMovie)
 
+const mediaRoute = require('./mediaRoute')
+router.use('/media', mediaRoute)
+
 
 
 
