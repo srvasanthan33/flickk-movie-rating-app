@@ -22,7 +22,7 @@ const getAllMovies = async (req, res) => {
 const getMovieById = async (req, res) => {
     try {
         const { movie_id } = req.params
-        const movie = await movieModel.findOne({ movie_id })
+        const movie = await movieModel.findOne({ _id: movie_id })
         console.log(`movie id ${movie.movie_id} retrieved`)
         res.status(200).json(movie)
     }
@@ -52,9 +52,9 @@ const addRating = async (req, res) => {
 
         const movie_id = req.params.movie_id
 
-        const movie = await movieModel.findOne({ movie_id })
+        const movie = await movieModel.findOne({ _id: movie_id })
         if (!movie) {
-            res.status(404).json({ message: 'Movie not found' })
+            return res.status(404).json({ message: 'Movie not found' })
         }
 
         //Checking whether the user has posted a review
