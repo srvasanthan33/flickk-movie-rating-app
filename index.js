@@ -29,7 +29,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 
-app.use('/api/vi/flickk', homeRoute)
+app.use('/api/v1/flickk', homeRoute)
 
 // Protected routes can be accessed only when authorized
 app.use('/api/v1/movies', requireAuth, checkUser, movieRoute)
