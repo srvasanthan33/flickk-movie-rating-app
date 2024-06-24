@@ -21,7 +21,12 @@ const getAllMovies = async (req, res) => {
 
 const getMovieById = async (req, res) => {
     try {
+
         const { movie_id } = req.params
+
+        if (!mongoose.Types.ObjectId.isValid(movie_id)) {
+            return res.status(400).json({ message: "Invalid movie ID format" });
+        }
         const movie = await movieModel.findOne({ _id: movie_id })
         console.log(`movie id ${movie.movie_id} retrieved`)
         res.status(200).json(movie)
