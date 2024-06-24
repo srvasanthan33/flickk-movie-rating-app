@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
 require('dotenv').config()
 const path = require('path')
 
@@ -25,10 +26,13 @@ mongoose.connect(process.env.MONGO_URL)
     })
 
 
-
+app.get('/', (req, res) => {
+    res.send('Welcome to flickk , a Movie Rating App')
+})
 
 app.use(express.json())
 app.use(cookieParser())
+app.use(cors())
 
 
 app.use('/api/v1/flickk', homeRoute)
