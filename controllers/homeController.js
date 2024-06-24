@@ -14,11 +14,12 @@ const getThumbnailById = async (req, res) => {
             return res.status(404).json({ message: 'Image not found for this movie' });
         }
 
-        const imagePath = path.resolve(movieMedia.image.filePath);
+        const imagePath = path.resolve(__dirname, '../', movieMedia.image.filePath.replace(/\\/g, '/'));
+
         if (fs.existsSync(imagePath)) {
             res.sendFile(imagePath);
         } else {
-            res.status(404).json({ message: 'Image file not found on server' });
+            res.status(404).json({ message: 'Video file not found on server' });
         }
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -34,7 +35,8 @@ const getVideoById = async (req, res) => {
             return res.status(404).json({ message: 'Video not found for this movie' });
         }
 
-        const videoPath = path.resolve(movieMedia.video.filePath);
+        const videoPath = path.resolve(__dirname, '../', movieMedia.video.filePath.replace(/\\/g, '/'));
+
         if (fs.existsSync(videoPath)) {
             res.sendFile(videoPath);
         } else {
