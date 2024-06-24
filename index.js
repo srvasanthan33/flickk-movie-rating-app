@@ -6,6 +6,9 @@ require('dotenv').config()
 const path = require('path')
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use(express.json())
+app.use(cookieParser())
+app.use(cors())
 
 const movieRoute = require('./routes/movieRoute')
 const authenticateRoute = require('./routes/authenticateRoute')
@@ -13,7 +16,7 @@ const { requireAuth, requireAdmin, checkUser } = require('./middleware/authMiddl
 const adminRoute = require('./routes/adminRoute')
 const homeRoute = require('./routes/homeRoute')
 
-const PORT = 5500
+const PORT = process.env.PORT
 
 const mongoose = require('mongoose')
 
@@ -30,9 +33,7 @@ app.get('/', (req, res) => {
     res.send('Welcome to flickk , a Movie Rating App')
 })
 
-app.use(express.json())
-app.use(cookieParser())
-app.use(cors())
+
 
 
 app.use('/api/v1/flickk', homeRoute)
