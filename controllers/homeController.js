@@ -45,33 +45,43 @@ const getVideoById = async (req, res) => {
     }
 }
 
+
 const getAllMovies = async (req, res) => {
-    const baseUrl = 'http://localhost:5500/api/v1/flickk'
     try {
-        const { movie_name, release_year, genre, synopsis, avg_rating, reviews, ...movie_id } = await movieModel.find()
-        const movieDetails = await movieModel.find()
-        const mediaDetails = await mediaModel.find()
+        const movies = await movieModel.find();
+        const media = await mediaModel.find();
 
-        let respond_data = []
-        movieDetails.forEach(ele => {
-            mediaDetails.forEach(media => {
-                if (mediaDetails.movieId == movieDetails._id) {
-                    respond_data.push(
-                        ele._id = { ele, media })
+        const baseUrl = `${req.protocol}://${req.get('host')}`;
+
+        const respond_data = movies.map(movie => {
+            const movieMedia = media.find(m => m.movieId.toString() === movie._id.toString());
+            const imageUrl = movieMedia && movieMedia.image ? `${baseUrl}/${movieMedia.image.filePath.replace(/\\/g, '/')}` : null;
+            const videoUrl = movieMedia && movieMedia.video ? `${baseUrl}/${movieMedia.video.filePath.replace(/\\/g, '/')}` : null;
+
+            return {
+                movieData: {
+                    movie_id: movie._id,
+                    movie_name: movie.movie_name,
+                    release_year: movie.release_year,
+                    genre: movie.genre,
+                    synopsis: movie.synopsis,
+                    avg_rating: movie.avg_rating,
+                    reviews: movie.reviews
+
+                },
+                media: {
+                    imageUrl,
+                    videoUrl
                 }
-            })
-        })
+            };
+        });
 
-
-
-
-
-        res.status(201).json(respond_data)
-    }
-    catch (error) {
+        res.status(201).json(respond_data);
+    } catch (error) {
         res.status(500).json({ message: error.message });
     }
-}
+};
+
 
 const getMovieById = async (req, res) => {
     res.send('movie by id')
