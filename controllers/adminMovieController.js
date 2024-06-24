@@ -35,9 +35,7 @@ const updateMovie = async (req, res) => {
     const updatedMovieDetails = req.body
 
     try {
-        if (!mongoose.Types.ObjectId.isValid(movie_id)) {
-            return res.status(400).json({ message: "Invalid movie ID format" });
-        }
+
         const movie = await movieModel.findOneAndUpdate({ _id: movie_id }, { $set: updatedMovieDetails }, { new: true })
         console.log(movie)
         res.status(201).json(movie)
