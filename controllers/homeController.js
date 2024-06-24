@@ -46,7 +46,31 @@ const getVideoById = async (req, res) => {
 }
 
 const getAllMovies = async (req, res) => {
+    const baseUrl = 'http://localhost:5500/api/v1/flickk'
+    try {
+        const { movie_name, release_year, genre, synopsis, avg_rating, reviews, ...movie_id } = await movieModel.find()
+        const movieDetails = await movieModel.find()
+        const mediaDetails = await mediaModel.find()
 
+        let respond_data = []
+        movieDetails.forEach(ele => {
+            mediaDetails.forEach(media => {
+                if (mediaDetails.movieId == movieDetails._id) {
+                    respond_data.push(
+                        ele._id = { ele, media })
+                }
+            })
+        })
+
+
+
+
+
+        res.status(201).json(respond_data)
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 }
 
 const getMovieById = async (req, res) => {

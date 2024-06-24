@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const cookieParser = require('cookie-parser')
 require('dotenv').config()
-
+const path = require('path')
 
 const movieRoute = require('./routes/movieRoute')
 const authenticateRoute = require('./routes/authenticateRoute')
@@ -27,7 +27,7 @@ mongoose.connect(process.env.MONGO_URL)
 
 app.use(express.json())
 app.use(cookieParser())
-
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.use('/api/v1/flickk', homeRoute)
 
