@@ -3,6 +3,8 @@ const userModel = require('../models/user')
 
 const initialData = require('../data/initialData')
 
+const mongoose = require('mongoose')
+
 const getAllMovies = async (req, res) => {
     try {
 
