@@ -8,7 +8,7 @@ const imageStorage = multer.diskStorage({
         cb(null, storePath)
     },
     filename: (req, file, cb) => {
-        console.log(`upload image - \n ${req.file}`)
+        console.log(`upload image - \n ${file.originalname}`)
         const { movie_id } = req.params
         req.body.att = { movie_id }
         cb(null, movie_id + path.extname(file.originalname))
@@ -17,11 +17,11 @@ const imageStorage = multer.diskStorage({
 
 const videoStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const storePath = '../assets/videos'
+        const storePath = './assets/videos'
         cb(null, storePath)
     },
     filename: (req, file, cb) => {
-        console.log(`upload video - \n ${req.file}`)
+        console.log(`upload video - \n ${file.originalname}`)
         const { movie_id } = req.params
         cb(null, movie_id + path.extname(file.originalname))
     }

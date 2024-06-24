@@ -15,7 +15,7 @@ const attributeSchema = new mongoose.Schema({
 const mediaSchema = new mongoose.Schema({
     movieId: { type: mongoose.Schema.Types.ObjectId, ref: 'movie', required: true, unique: true },
     image: { type: attributeSchema, default: () => ({ filePath: 'assets/images/default_image.jpg' }) },
-    video: { type: attributeSchema, default: () => ({ filePath: 'assets/videos/default_video.jpg' }) },
+    video: { type: attributeSchema, default: () => ({ filePath: 'assets/videos/default_video.mp4' }) },
     uploadedAt: { type: Date, default: Date.now }
 })
 
