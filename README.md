@@ -1,4 +1,4 @@
- # Flickk-movie-rating-backend App
+# Flickk-movie-rating-backend App
 
 This project is a movie rating backend application built using Node.js, Express.js, and MongoDB. It allows administrators to manage movies and media (images and videos), and normal users to view movies and add ratings.
 
@@ -39,7 +39,28 @@ npm run devStart
 
 
 ## Usage
+### Home
+#### View All Movie Details
 
+```
+GET /api/v1/flickk
+```
+
+#### View Movie By Id
+
+```
+GET /api/v1/flickk/<movie_id>
+```
+
+#### view Thumbnail
+```
+GET /api/v1/flickk/thumbnail/<movie_id>
+```
+
+#### view Video
+```
+GET /api/v1/flickk/video/<movie_id>
+```
 ### Authentication 
 #### Login
 ```
@@ -74,40 +95,33 @@ DELETE /api/v1/admin/deleteMovie/<movie_id>
 
 #### add Movie Thumbnail
 ```
-POST /admin/media/addImage/<movie_id>
+POST /api/v1/admin/media/addImage/<movie_id>
 ```
 
 #### add Movie Video
 ```
-POST /admin/media/addVideo/<movie_id>
+POST /api/v1/admin/media/addVideo/<movie_id>
 ```
 
 ### User routes
 #### add Rating
 
 ```
-POST /movies/addRating/<movie_id>
+POST api/v1/movies/addRating/<movie_id>
 ```
 
 #### view Movies
 
 ```
-GET /movies
+GET api/v1/movies
 ```
 
 #### view movie by id
 ```
-GET /movies/<movie_id>
+GET api/v1/movies/<movie_id>
 ```
 
 
+
 ## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
+You are welcome to contribute on this project   
